@@ -6,21 +6,7 @@
 # =============================================================================
 cd "$(dirname $0)"/..
 
-# Generate .bundle/config instead of using env vars or command line
-# flags so that we have consistent configuration for our `bundle
-# check` and `bundle install` calls here, as well as any manual calls
-# to `bundle` that people might make.
+rm -rf .bundle/config
 
-# We don't want old config hanging around right now.
-rm -rf .bundle
-mkdir .bundle
-
-echo "---
-BUNDLE_BIN: bin
-BUNDLE_DISABLE_SHARED_GEMS: "1"
-BUNDLE_PATH: vendor/gems
-BUNDLE_WITHOUT: staging:production
-" > .bundle/config
-
-# Bundle install unless we're already up to date.
-bundle check > /dev/null 2>&1 || bundle install "$@"
+bundle check --path .bundle > /dev/null 2>&1 ||
+  bundle install --binstubs bin --path .bundle --quiet

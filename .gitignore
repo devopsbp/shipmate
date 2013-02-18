@@ -1,6 +1,5 @@
 # Gems Bundler
-*.gem
 .bundle
-bin
-vendor/gems
+bin/*
 Gemfile.lock
+shipmate-*.gem
